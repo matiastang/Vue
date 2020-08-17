@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>textarea自适应高度</title>
+
+    <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <!-- 生产环境版本，优化了尺寸和速度 -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue"></script> -->
+</head>
+<body>
+    <div id="app">
+        <textarea  
+            class="textarea-item"   
+            placeholder="请输入内容" 
+            rows="1"  
+            ref="textareaInput" 
+            v-model="textareaObj.text">
+        </textarea>
+    </div>
+</body>
+<script defer>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            textareaObj: {
+                height: 60,
+                text: '默认填入的内容'
+            }
+        },
+        watch: {
+            'textareaObj.text': function (newText) {
+                this.getTextareaHeight(this.$refs.textareaInput)
+            }
+        },
+        methods: {
+            getTextareaHeight (el) {
+                this.timer = setTimeout(() => {
+                    el.style.height = 'auto' // 必须设置为auto
+                    el.style.height = (el.scrollHeight) + 'px'
+                }, 20)
+            }
+        }
+    })
+</script>
+</html>
