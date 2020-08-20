@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>组件</title>
+
+    <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <!-- 生产环境版本，优化了尺寸和速度 -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue"></script> -->
+</head>
+<body>
+    <div id="app">
+        <title>了收到货法律上接待来访{{count}}</title>
+        <button-counter v-bind:post="count"></button-counter>
+        <button-counter-two v-bind:post="count" v-on:change-count="count += 2"></button-counter-two>
+        <button-counter-two v-bind:post="count" v-on:change-count="count += $event"></button-counter-two>
+        <button-counter-two v-bind:post="count" v-on:change-count="countChange"></button-counter-two>
+    </div>
+</body>
+<script>
+    // 自定义全局组件
+    Vue.component('button-counter', {
+        props: ['post'],
+        data: () => {
+            return {
+                count: 0
+            }
+        },
+        template: `<button v-on:click="count++">点击增加{{ post }},count{{ count }}</button>`
+    })
+    Vue.component('button-counter-two', {
+        props: ['post'],
+        // data: () => {
+        //     return {
+        //         count: 0
+        //     }
+        // },
+        template: `<button v-on:click="$emit('change-count', 1)">点击增加{{ post }}</button>`
+    })
+    var ComponentA = {}
+    var app = new Vue({
+        el: '#app',
+        data: {
+            count: 5,
+            textareaObj: {
+                height: 60,
+                text: '默认填入的内容'
+            }
+        },
+        compoments: {
+            'component-a': ComponentA
+        },
+        watch: {
+            'textareaObj.text': function (newText) {
+                this.getTextareaHeight(this.$refs.textareaInput)
+            }
+        },
+        methods: {
+            countChange(add) {
+                this.count += add 
+            },
+            getTextareaHeight (el) {
+                this.timer = setTimeout(() => {
+                    el.style.height = 'auto' // 必须设置为auto
+                    el.style.height = (el.scrollHeight) + 'px'
+                }, 20)
+            }
+        }
+    })
+</script>
+</html>
