@@ -94,25 +94,25 @@ Dep.prototype = {
     }
 }
 
-let dataObj = {
-    one: 'one',
-    two: 'two'
-}
-let observer = observe(dataObj)
+// let dataObj = {
+//     one: 'one',
+//     two: 'two'
+// }
+// let observer = observe(dataObj)
 
-console.log(dataObj)
+// console.log(dataObj)
 
-console.log(dataObj.one)
-console.log(dataObj.two)
+// console.log(dataObj.one)
+// console.log(dataObj.two)
 
-dataObj.one = '1'
-console.log(dataObj.one)
+// dataObj.one = '1'
+// console.log(dataObj.one)
 
-dataObj.two = {
-    three: 'three',
-    four: 'four'
-}
-console.log(dataObj.two)
+// dataObj.two = {
+//     three: 'three',
+//     four: 'four'
+// }
+// console.log(dataObj.two)
 
-dataObj.two.four = '4'
-console.log(dataObj.two)
+// dataObj.two.four = '4'
+// console.log(dataObj.two)
