@@ -40,6 +40,7 @@
 
         computed: {
             getHelloWord: function() {
+                console.log(`计算属性读取`)
                 return this.someStr + this.child.someStr;
             }
         },
