@@ -1,3 +1,11 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: matias tang
+ * @Date: 2020-08-17 17:01:17
+ * @LastEditors: matias tang
+ * @LastEditTime: 2020-09-18 15:52:00
+-->
 # Vue
 
 [Vue 官网](https://cn.vuejs.org/v2/guide/)
@@ -6,6 +14,8 @@
 [snabbdom源码解析（一） 准备工作](https://www.haowuliaoa.com/article/info/141883.html)
 [vue虚拟dom原理剖析](https://segmentfault.com/a/1190000017546255)
 [vue核心之虚拟DOM(vdom)](https://www.jianshu.com/p/af0b398602bc)
+
+[学院君Vue教程](https://xueyuanjun.com/books/vue-tutorial)
 
 [双向绑定mvvm](https://www.cnblogs.com/honghong87/p/9332373.html)
 [Vue的diff算法实现](https://blog.csdn.net/zjf_hi/article/details/97631257?utm_source=app)
