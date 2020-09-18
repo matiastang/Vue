@@ -16,7 +16,10 @@ Compile.prototype = {
             child;
 
         // 将原生节点拷贝到fragment
-        while (child = el.firstChild) {
+        // while (child = el.firstChild) {
+        //     fragment.appendChild(child);
+        // }
+        while (child = el.children.item(0)) {
             fragment.appendChild(child);
         }
 
