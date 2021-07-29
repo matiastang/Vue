@@ -2,7 +2,7 @@
  * @Author: tangdaoyong
  * @Date: 2021-02-18 11:28:47
  * @LastEditors: tangdaoyong
- * @LastEditTime: 2021-02-18 11:35:03
+ * @LastEditTime: 2021-07-05 23:06:52
  * @Description: diff
 -->
 <!-- TOC -->
@@ -23,6 +23,7 @@
 <!-- /TOC -->
 # Vue diff 算法
 
+[Diff算法（React、Vue2.x、Vue3.x）](https://zhuanlan.zhihu.com/p/149972619?from_voters_page=true)
 [snabbdom github](https://github.com/snabbdom/snabbdom)
 
 ## 介绍
