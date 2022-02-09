@@ -1,0 +1,70 @@
+<!--
+ * @Author: matiastang
+ * @Date: 2022-02-09 10:49:05
+ * @LastEditors: matiastang
+ * @LastEditTime: 2022-02-09 11:11:24
+ * @FilePath: /Vue/src/test/ip.html
+ * @Description: 获取ip地址
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>获取ip地址</title>
+</head>
+<body>
+    <div id="dom"></div>
+    <script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
+    <script type="text/javascript">
+        /*
+        内网IP的获取相对比较复杂，主要是需要依赖 webRTC 这么一个非常用的API
+        WebRTC，名称源自网页即时通信（英语：Web Real-Time Communication）的缩写，是一个支持网页浏览器进行实时语音对话或视频对话的API。它于2011年6月1日开源并在Google、Mozilla、Opera支持下被纳入万维网联盟的W3C推荐标准。
+        webRTC 是HTML 5 的一个扩展，允许去获取当前客户端的IP地址，可以查看当前网址：net.ipcalf.com/
+        但如果使用 chrome 浏览器打开，此时可能会看到一串类似于： 
+        e87e041d-15e1-4662-adad-7a6601fca9fb.local
+        的机器码，这是因为chrome 默认是隐藏掉 内网IP地址的，可以通过修改 chrome 浏览器的配置更改此行为：
+        1、在chrome 浏览器地址栏中输入：chrome://flags/
+        2、搜索 #enable-webrtc-hide-local-ips-with-mdns 该配置 并将属性改为 disabled
+        3、点击relaunch 浏览器即可查看到本机的内网IP地址
+        */
+        // 下面这行和上面的script一起使用  获取真实IP地址
+        document.write(returnCitySN["cip"]+','+returnCitySN["cname"] + "真实IP地址")
+        // 下面的一堆 单独使用 获取本地的IP地址
+        function findIP(callback) {
+            var myPeerConnection = window.RTCPeerConnection || window.mozRTCPeerConnection || window.webkitRTCPeerConnection; //compatibility for firefox and chrome
+            var pc = new myPeerConnection({iceServers: []}),
+                noop = function() {},
+                localIPs = {},
+                ipRegex = /([0-9]{1,3}(\.[0-9]{1,3}){3}|[a-f0-9]{1,4}(:[a-f0-9]{1,4}){7})/g,
+                key;
+
+            function ipIterate(ip) {
+                if (!localIPs[ip]) callback(ip);
+                localIPs[ip] = true;
+            }
+            pc.createDataChannel("");
+            pc.createOffer().then(function(sdp) {
+                console.log(sdp.sdp)
+                sdp.sdp.split('\n').forEach(function(line) {
+                    if (line.indexOf('candidate') < 0) return;
+                    line.match(ipRegex).forEach(ipIterate);
+                });
+                pc.setLocalDescription(sdp, noop, noop);
+            });
+            pc.onicecandidate = function(ice) {
+                console.log(ice)
+                if (!ice || !ice.candidate || !ice.candidate.candidate || !ice.candidate.candidate.match(ipRegex)) return;
+                debugger
+                ice.candidate.candidate.match(ipRegex).forEach(ipIterate);
+            };
+        }
+
+        findIP(function(ip){
+            let dom = document.getElementById('dom')
+            dom.innerHTML = ip + "你的本地IP地址"
+        });
+    </script>
+</body>
+</html>
